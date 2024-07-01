@@ -1,0 +1,38 @@
+.paginado {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .pagination {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .page-item {
+    margin: 0 5px;
+  }
+  
+  .page-link {
+    background-color: #333;
+    color: white;
+    border: 1px solid #333;
+    padding: 8px 12px;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .page-link:hover {
+    background-color: #555;
+    border-color: #555;
+  }
+  
+  .active {
+    background-color: #555;
+    border-color: #555;
+  }
+  
+  .pagination .prev-next {
+    margin: 0 10px;
+  }

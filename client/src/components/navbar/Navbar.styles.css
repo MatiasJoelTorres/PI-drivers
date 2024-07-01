@@ -1,0 +1,55 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10%;
+  background-color: #333333; /* gris bien oscuro */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.navbar form {
+  display: flex;
+  align-items: center;
+}
+
+.navbar input[type="search"] {
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  outline: none;
+  margin-right: 10px;
+  background-color: #555555; /* gris oscuro */
+  color: #ffffff;
+}
+
+.navbar button,
+.navbar a {
+  padding: 10px 20px; /* Ajusta el padding según sea necesario */
+  border: none;
+  border-radius: 4px;
+  background-color: #555555; /* gris oscuro */
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  height: 100%; /* Asegura que todos los elementos tengan la misma altura */
+  font-size: inherit; /* Hereda el tamaño de fuente del padre */
+  box-sizing: border-box; /* Asegura que el tamaño total incluya el padding y border */
+}
+
+.navbar input[type="search"]::placeholder {
+  color: #cccccc;
+}
+
+.navbar button:hover,
+.navbar a:hover {
+  background-color: #444444; /* gris ligeramente más claro para el efecto hover */
+}
