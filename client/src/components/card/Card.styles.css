@@ -1,3 +1,10 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Espacio entre tarjetas */
+    justify-content: center; /* Centrar las tarjetas horizontalmente */
+}
+
 .card {
     display: flex;
     flex-direction: column;
@@ -7,18 +14,20 @@
     cursor: pointer;
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
-    transform: translateZ(0); 
+    transform: scale(0.8); /* Reducir el tamaño de la tarjeta al 80% */
     transition: transform 0.3s ease-out; /* Transición suave para el agrandamiento */
     text-decoration: none; /* Elimina el subrayado de los links */
     color: white; /* Color del texto */
     padding: 10px; /* Añadido para asegurar espacio interno */
     box-sizing: border-box; /* Asegura que el padding se incluya en el tamaño total */
+    width: calc(20% - 20px); /* Ajustar el ancho de la tarjeta */
+    margin: 10px; /* Añadir espacio entre las tarjetas */
 }
-  
+
 .card:hover {
-    transform: scale(1.05); /* Agranda un poco la tarjeta */
+    transform: scale(0.85); /* Agranda un poco la tarjeta al pasar el cursor, manteniendo la reducción del 20% */
 }
-  
+
 .card h2, .card p {
     width: 100%; /* Asegura que la imagen ocupe el 100% del contenedor */
     height: auto;
@@ -27,7 +36,7 @@
     border-radius: 10px 10px 10px 10px;
     object-fit: cover; /* Asegura que la imagen se ajuste correctamente */
 }
-  
+
 .card-image-container {
     display: flex;
     justify-content: center;
@@ -36,8 +45,6 @@
     height: 50%; /* Ocupa el 50% de la altura de la card */
     margin-bottom: 10px; /* Distancia entre la imagen y otros elementos */
 }
-
-
 
 .card-image {
     width: 100%;
@@ -51,19 +58,20 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-align: center;
     height: 50%;
 }
-  
-.card-info h2, h1{
+
+.card-info h2, .card-info h1 {
     margin: 10px 0; /* Espacio entre los elementos */
 }
-  
+
 .card a {
     text-decoration: none; /* Elimina la subrayado de los links */
     color: white; /* Asegura que el texto del link sea blanco */
     font-family: Arial, sans-serif; /* Define la fuente para el texto */
 }
-  
+
 .card a:hover {
     color: lightgray; /* Cambia el color del texto del link al pasar el cursor */
 }

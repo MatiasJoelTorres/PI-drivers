@@ -1,21 +1,28 @@
-import './Cards.styles.css'
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import './Cards.styles.css';
+import Card from '../card/Card';
 
-import Card from '../card/Card'
+function Cards() {
+  const allDrivers = useSelector(state => state.allDrivers);
+  const driversCopy = useSelector(state => state.driversCopy);
+  const [driversList, setDriversList] = useState([]);
 
-
-// eslint-disable-next-line react/prop-types
-function Cards({allDrivers}) {
-const driversList = allDrivers
+  useEffect(() => {
+    if (driversCopy.length > 0) {
+      setDriversList(driversCopy);
+    } else {
+      setDriversList(allDrivers);
+    }
+  }, [driversCopy, allDrivers]);
 
   return (
-    <div className='card-container' >
+    <div className='card-container'>
       {driversList.map((driver) => (
-        // eslint-disable-next-line react/jsx-key
-        <Card key={driver.id || driver.forename + driver.surname} driver={driver} />
+        <Card key={driver.id || `${driver.forename}-${driver.surname}`} driver={driver} />
       ))}
     </div>
-  )
+  );
 }
 
-
-export default Cards
+export default Cards;

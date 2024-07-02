@@ -8,26 +8,28 @@ export default function Detail() {
   const { id } = useParams();
   const dispatch = useDispatch();
   const driver = useSelector((state) => state.selectedDriver);
+  console.log(driver)
   
   useEffect(() => {
     dispatch(getDriverById(id));
   }, [dispatch, id]);
 
-  // Renderizado condicional de teams
   let teamsContent = null;
-  if (driver.teams && Array.isArray(driver.teams)) {
+  if (driver && driver.teams && Array.isArray(driver.teams)){
+    const uniqueTeams = Array.from(new Set(driver.teams.map(team => team.name)));
+  
     teamsContent = (
       <div>
         <div>
-          {driver.teams.map((team, index) => (
-            <p key={index}>Teams: {team.name}</p>
-          ))}
+          <p>Teams: {uniqueTeams.join(', ')}</p>
         </div>
       </div>
     );
-  } else {
+  } else if (driver && driver.teams) {
     // Si driver.teams no es un array, renderizar como texto
     teamsContent = <p>Teams: {driver?.teams}</p>;
+  } else {
+    teamsContent = <p>No teams available</p>;
   }
 
   return (

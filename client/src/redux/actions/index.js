@@ -6,6 +6,13 @@ export const GET_BY_NAME = "GET_BY_NAME"
 export const GET_DRIVER_BY_ID = "GET_DRIVER_BY_ID"
 export const CREATE_DRIVER_SUCCESS = "CREATE_DRIVER_SUCCESS"
 export const CREATE_DRIVER_FAILURE = "CREATE_DRIVER_FAILURE"
+export const FILTER_API_DRIVERS = "FILTER_API_DRIVERS"
+export const FILTER_DB_DRIVERS = "FILTER_DB_DRIVERS"
+export const FILTER_TEAM_DRIVERS = "FILTER_TEAM_DRIVERS"
+export const SORT_BY_A_Z = "SORT_BY_A_Z"
+export const SORT_BY_Z_A = "SORT_BY_Z_A"
+export const SORT_BY_BIRTH_MAJ = "SORT_BY_BIRTH_MAJ"
+export const SORT_BY_BIRTH_MIN = "SORT_BY_BIRTH_MIN"
 
 const getTeamsForArray = (teams) => {
     if (!teams || !Array.isArray(teams)) {
@@ -21,9 +28,6 @@ export function getDrivers() {
           const apiData = await axios.get("http://localhost:3001/drivers");
 
           const drivers = apiData.data;
-
-          console.log("Datos de conductores recibidos:", drivers);
-
 
           let newArray = drivers.map((driver) => {
               try {
@@ -41,9 +45,6 @@ export function getDrivers() {
                   throw error;
               }
           });
-
-          console.log("Datos de conductores procesados:", newArray);
-
           dispatch({ type: GET_DRIVERS, payload: newArray });
       } catch (err) {
           console.error("Error al obtener los conductores:", err);
@@ -82,7 +83,6 @@ export function getDriverById(id) {
   return async function (dispatch) {
     try {
       const idData = (await axios.get(`http://localhost:3001/drivers/${id}`)).data;
-      console.log(idData)
       dispatch({ type: GET_DRIVER_BY_ID, payload: idData });
     } catch (error) {
       console.error('Error fetching driver detail:', error.message);
@@ -93,7 +93,6 @@ export function getDriverById(id) {
 export function getTeamsFromDB () {
     return async function (dispatch){
         const teamsData = (await axios.get('http://localhost:3001/teams')).data;
-
         dispatch ({ type: GET_TEAMS, payload: teamsData })
     }
 }
@@ -115,4 +114,32 @@ export const createDriver = (driverData) => {
       }
     };
   };
+
+export const filterApiDriver = () => {
+  return {type: FILTER_API_DRIVERS}
+}
+
+export const filterDbDrivers = () => {
+  return {type: FILTER_DB_DRIVERS}
+}
+
+export const filterTeamDriver = (selectedTeam) => {
+  return {type: FILTER_TEAM_DRIVERS, payload: selectedTeam}
+}
+
+export const sortByAz = () => {
+  return {type: SORT_BY_A_Z}
+}
+
+export const sortByZa = () => {
+  return {type: SORT_BY_Z_A}
+}
+
+export const sortByBirthMaj = () => {
+  return {type: SORT_BY_BIRTH_MAJ}
+}
+
+export const sortByBirthMin = () => {
+  return {type: SORT_BY_BIRTH_MIN}
+}
 

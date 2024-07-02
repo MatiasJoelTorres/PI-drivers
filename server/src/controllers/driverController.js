@@ -112,51 +112,51 @@ const getDriverById = async (id, source) => {
 
 
 const createDriver = async (
-  forename, 
-  surname, 
-  description, 
-  nationality, 
-  birthdate, 
-  teamName, // Cambio aquí a teamName en lugar de teamId
-  image
-) => {
-  try {
-    const newDriver = await Driver.create({
-      forename,
-      surname,
-      description,
-      nationality,
-      birthdate,
-      image,
-    });
-
-    console.log('Conductor creado:', newDriver);
-
-    // Verificar y asociar equipos al conductor recién creado por nombre
-    if (teamName) {
-      console.log('Nombre del equipo proporcionado:', teamName);
-
-      const team = await Team.findOne({
-        where: {
-          name: teamName
-        }
+    forename, 
+    surname, 
+    description, 
+    nationality, 
+    birthdate, 
+    teams, 
+    image
+  ) => {
+    try {
+      // Crea el nuevo conductor en la base de datos
+      const newDriver = await Driver.create({
+        forename,
+        surname,
+        description,
+        nationality,
+        birthdate,
+        image,
       });
-
-      if (team) {
-        await newDriver.addTeam(team);
-        const associatedTeams = await newDriver.getTeams();
-        console.log('Equipos asociados al conductor:', associatedTeams.map(team => team.name));
-      } else {
-        console.log("No se encontró un equipo con el nombre proporcionado.");
+  
+      console.log('Conductor creado:', newDriver);
+  
+      // Asocia cada equipo al conductor recién creado
+      if (teams && teams.length > 0) {
+        for (const teamName of teams) {
+          const team = await Team.findOne({
+            where: { name: teamName }
+          });
+  
+          if (team) {
+            await newDriver.addTeam(team);
+          } else {
+            console.log(`No se encontró un equipo con el nombre ${teamName}.`);
+          }
+        }
       }
+  
+      // Obtiene y retorna los equipos asociados al conductor
+      const associatedTeams = await newDriver.getTeams();
+  
+      return newDriver;
+    } catch (error) {
+      console.error(`Error al crear conductor: ${error.message}`);
+      throw error;
     }
-
-    return newDriver;
-  } catch (error) {
-    console.error(`Error al crear conductor: ${error.message}`);
-    throw error;
-  }
-}
+  };
 
 module.exports = {
     getAllDrivers,

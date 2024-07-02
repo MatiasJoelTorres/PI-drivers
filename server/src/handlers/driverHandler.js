@@ -12,7 +12,7 @@ const getDriversHandler = async (req,res) => {
 
 const getDetailHandler = async (req, res) => {
     const { id } = req.params;
-    const source = isNaN(id) ? "bdd" : "api"; // Supongo que los IDs de la base de datos no son números
+    const source = isNaN(id) ? "bdd" : "api"; 
 
     try {
         const resDetail = await getDriverById(id, source);
@@ -22,32 +22,38 @@ const getDetailHandler = async (req, res) => {
     }
 };
 
-const createDriverHandler = async (req,res)=> {
-const {
-    forename,
-    surname,
-    description,
-    nationality, 
-    birthdate,
-    teamName,
-    image,
-} = req.body;
-
+const createDriverHandler = async (req, res) => {
+    const {
+      forename,
+      surname,
+      description,
+      nationality,
+      birthdate,
+      team1,
+      team2,
+      team3,
+      image,
+    } = req.body;
+  
     try {
-        const resData = await createDriver(
-            forename,
-            surname,
-            description,
-            nationality, 
-            birthdate,
-            teamName, 
-            image,
-        )
-        res.status(200).json(resData)
+      // Forma un array de equipos seleccionados
+      const teams = [team1, team2, team3].filter(Boolean); // Filtra los equipos seleccionados que no sean vacíos
+  
+      const resData = await createDriver(
+        forename,
+        surname,
+        description,
+        nationality,
+        birthdate,
+        teams,
+        image,
+      );
+  
+      res.status(200).json(resData);
     } catch (error) {
-        res.status(400).json({error:error.message})
+      res.status(400).json({ error: error.message });
     }
-};
+  };
 
 
 module.exports = {
